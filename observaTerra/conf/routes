@@ -4,6 +4,8 @@
 
 # Home page
 GET     /                           controllers.Application.index()
+GET     /country                    controllers.Application.showCountries()
+
 
 
 # Map static resources from the /public folder to the /assets URL path
