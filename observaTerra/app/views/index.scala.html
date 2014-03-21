@@ -1,7 +1,9 @@
-@(message: String)
+@()
 
-@main("Welcome to Play") {
+<h1>ObservaTerra</h1>
+<ul>
+<li><a href="@routes.Application.showCountries">Show Countries</a>
+<li><a href="@routes.Application.showIndicators">Show Indicators</a>
+<li><a href="@routes.Application.showObservations">Show Observations</a>
+</ul>
 
-    @play20.welcome(message, style = "Java")
-
-}

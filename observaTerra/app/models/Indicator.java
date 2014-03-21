@@ -1,13 +1,13 @@
 package models;
 
 import java.util.List;
-
 import play.db.ebean.*;
 import play.data.validation.Constraints.*;
 import javax.persistence.*;
 
+
 @Entity
-public class Country extends Model {
+public class Indicator extends Model {
     
   @Id
   public Long id;
@@ -15,18 +15,18 @@ public class Country extends Model {
   @Required
   public String name;
   
-  public Country(String name) {
+  public Indicator(String name) {
 	  this.name = name;
   }
    
-  public static Finder<Long,Country> find = new Finder(Long.class, Country.class);
+  public static Finder<Long,Indicator> find = new Finder(Long.class, Indicator.class);
   
-  public static List<Country> all() {
+  public static List<Indicator> all() {
     return find.all();
   }
   
-  public static void create(Country country) {
-	country.save();
+  public static void create(Indicator indicator) {
+	indicator.save();
   }
   
   public static void delete(Long id) {

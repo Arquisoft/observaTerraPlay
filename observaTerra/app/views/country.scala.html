@@ -1,4 +1,32 @@
-@(name: String)
-<html>
- <h1>Contry: @name</h1>
-</html>
+@(countries: List[Country], form: Form[Country])
+
+@import play.i18n._
+
+@main(Messages.get("list.countries")) {
+
+<table>
+@for(country <- countries) { 
+  <tr><td>@country.name</td>
+      <td>
+      <td>@helper.form(routes.Application.deleteCountry(country.id)) {
+               <input type="image" 
+                      src="@{routes.Assets.at("images/delete.gif")}" 
+                      alt='@{Messages.get("delete.country")}'>
+         }
+      </td>
+  </tr>
+   
+}
+</table>
+
+<h2>@{Messages.get("add.country")}</h2>
+    
+	@helper.form(action = routes.Application.newCountry()) {
+	
+        @helper.inputText(form("name")) 
+        
+        <input type="submit" value="@{Messages.get("create")}">
+        
+    }    
+    
+}

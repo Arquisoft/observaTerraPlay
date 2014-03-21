@@ -3,17 +3,22 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
-GET     /country                    controllers.Application.showCountries()
+GET     /              				controllers.Application.index()
 
+GET		/country					controllers.Application.showCountries()
+POST	/country					controllers.Application.newCountry()
+POST	/country/delete/:id         controllers.Application.deleteCountry(id: Long)
 
+GET		/indicator					controllers.Application.showIndicators()
+POST	/indicator					controllers.Application.newIndicator()
+POST	/indicator/delete/:id       controllers.Application.deleteIndicator(id: Long)
+
+GET		/observation				controllers.Application.showObservations()
+POST	/observation				controllers.Application.newObservation()
+POST	/observation/delete/:id     controllers.Application.deleteObservation(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
-
-GET 	/hola						controllers.HolaMundo.saluda
-GET 	/country					controllers.Countries.showCountry(name: String)
-GET		/countries					controllers.Countries.showCountries
 
 # Ejemplo 
 GET		/proxy						controllers.Proxy.index(url: String)
