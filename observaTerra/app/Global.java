@@ -16,7 +16,7 @@ public class Global extends GlobalSettings {
 	static class InitialData {
 		public static void insert(Application app) {
 			if (Country.all().isEmpty()) {
-				Country 	spain = new Country("Spain");
+				/*Country 	spain = new Country("Spain");
 				Country 	france= new Country("France");
 				Indicator	hdi   = new Indicator("hdi");
 				Observation obs1 = new Observation(2.3,spain,hdi);
@@ -25,7 +25,7 @@ public class Global extends GlobalSettings {
 				france.save();
 				hdi.save();
 				obs1.save();
-				obs2.save();
+				obs2.save(); */
 			}
 		}
 	}

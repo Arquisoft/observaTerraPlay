@@ -1,10 +1,12 @@
-package es.uniovi.asw.observaTerra;
+package utils;
 
 import static org.junit.Assert.assertEquals;
 import static org.assertj.core.api.Assertions.*;
 
 import java.io.InputStream;
 
+import utils.ExcelReader;
+import models.ObservationList;
 import cucumber.api.java.es.Cuando;
 import cucumber.api.java.es.Dado;
 import cucumber.api.java.es.Entonces;

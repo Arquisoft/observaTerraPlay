@@ -1,8 +1,10 @@
 package models;
 
 import java.util.List;
+
 import play.db.ebean.*;
 import play.data.validation.Constraints.*;
+
 import javax.persistence.*;
 
 
@@ -32,5 +34,20 @@ public class Indicator extends Model {
   public static void delete(Long id) {
 	find.ref(id).delete();
   }
-  
+
+  public static List<Indicator> findByName(String name) {
+	  return find.where().eq("name", name).findList();
+  }
+
+  public static Indicator getOrCreate(String name) {
+	  List<Indicator> foundIndicators = Indicator.findByName(name);
+	  if (foundIndicators.isEmpty()) {
+		  Indicator indicator = new Indicator(name);
+		  indicator.save();
+		  return indicator;
+	  } else {
+		  return foundIndicators.get(0);
+	  }
+  }
+
 }

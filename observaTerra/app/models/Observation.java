@@ -22,6 +22,12 @@ public class Observation extends Model {
 	  this.indicator=indicator;
   }
   
+  public Observation(Double value, String countryName, String indicatorName) {
+	  this.obsValue = value ;
+	  this.country  = Country.getOrCreate(countryName);
+	  this.indicator=Indicator.getOrCreate(indicatorName);
+  }
+
   public Observation(Double value, Long countryId, Long indicatorId) {
 	  this.obsValue = value ;
 	  this.country = Country.find.byId(countryId);
@@ -36,8 +42,8 @@ public class Observation extends Model {
   
   public static Finder<Long,Observation> find = new Finder(Long.class, Observation.class);
   
-  public static List<Observation> all() {
-    return find.all();
+  public static ObservationList all() {
+    return new ObservationList(find.all());
   }
   
   public static void create(Observation obs) {

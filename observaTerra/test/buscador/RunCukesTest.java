@@ -1,4 +1,4 @@
-package es.uniovi.asw.observaTerra;
+package buscador;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;

@@ -1,4 +1,4 @@
-package es.uniovi.asw.buscador;
+package models;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;

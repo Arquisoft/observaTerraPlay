@@ -59,7 +59,7 @@ public class Application extends Controller {
     }
 
     public static Result showObservations() {
-    	return ok(views.html.observation.render(Observation.all(),Country.all(),Indicator.all(),observationForm));
+    	return ok(views.html.observation.render(Observation.find.all(),Country.all(),Indicator.all(),observationForm));
     }
     
     public static Result getObs(String name, Integer id) {
