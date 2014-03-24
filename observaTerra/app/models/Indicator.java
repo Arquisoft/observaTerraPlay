@@ -12,42 +12,38 @@ import javax.persistence.*;
 public class Indicator extends Model {
     
   @Id
-  public Long id;
+  public String code;
   
   @Required
   public String name;
   
-  public Indicator(String name) {
+  public Indicator(String code, String name) {
+	  this.code = code;
 	  this.name = name;
   }
    
-  public static Finder<Long,Indicator> find = new Finder(Long.class, Indicator.class);
+  public static Finder<String,Indicator> find = new Finder(String.class, Indicator.class);
   
   public static List<Indicator> all() {
     return find.all();
   }
   
   public static void create(Indicator indicator) {
-	indicator.save();
+	if (Indicator.findByName(indicator.name) == null) { 
+			indicator.save();
+	}
   }
   
-  public static void delete(Long id) {
+  public static void remove(String id) {
 	find.ref(id).delete();
   }
 
-  public static List<Indicator> findByName(String name) {
-	  return find.where().eq("name", name).findList();
+  public static Indicator findByName(String name) {
+	  return find.where().eq("name", name).findUnique();
   }
 
-  public static Indicator getOrCreate(String name) {
-	  List<Indicator> foundIndicators = Indicator.findByName(name);
-	  if (foundIndicators.isEmpty()) {
-		  Indicator indicator = new Indicator(name);
-		  indicator.save();
-		  return indicator;
-	  } else {
-		  return foundIndicators.get(0);
-	  }
+  public static Indicator findByCode(String code) {
+	  return find.byId(code);
   }
 
 }

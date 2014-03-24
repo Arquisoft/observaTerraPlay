@@ -26,7 +26,8 @@ import play.mvc.Http.Context;
 import play.api.mvc.RequestHeader;
 import static play.test.Helpers.*;
 import static org.fest.assertions.Assertions.*;
-
+import play.test.WithApplication;
+import models.*;
 
 /**
 *
@@ -34,34 +35,28 @@ import static org.fest.assertions.Assertions.*;
 * If you are interested in mocking a whole application, see the wiki for more details.
 *
 */
-public class ApplicationTest {
+public class ApplicationTest extends WithApplication {
 
-	public static FakeApplication app;
-	
-	@BeforeClass
-	public static void startApp() {
-	  app = Helpers.fakeApplication(Helpers.inMemoryDatabase());
-	  Helpers.start(app);
-	}
+	@Before
+	public void setUp() throws Exception {
+		start(fakeApplication(inMemoryDatabase()));
 
-	@Test
-    public void renderTemplate() {
+		// Initialization of Context...
 		Map<String, String> flashData = Collections.emptyMap();
-		Map<String, String> sessionData = Collections.emptyMap();
-        Map<String, Object> argData = Collections.emptyMap();
-        Long id = 2L;
-        play.api.mvc.RequestHeader header = mock(play.api.mvc.RequestHeader.class);
-        Request request = mock(Request.class); 
-        Context context = mock(Context.class);
-        Http.Context.current.set(context);
-        
-        Content html = views.html.index.render();
+		Map<String, Object> argData = Collections.emptyMap();
+		Long id = 2L;
+		play.api.mvc.RequestHeader header = mock(play.api.mvc.RequestHeader.class);
+        Http.Request request = mock(Http.Request.class);
+		Http.Context context = new Http.Context(id, header, request, flashData, flashData, argData);
+		Http.Context.current.set(context);
+	}
+    
+	
+	@Test
+    public void renderIndex() {
+        Content html = views.html.index.render(Observation.all(),Country.all(),Indicator.all());
         assertThat(contentType(html)).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("ObservaTerra"); 
     }
 
-    @AfterClass
-	  public static void stopApp() {
-	    Helpers.stop(app);
-	}
 }

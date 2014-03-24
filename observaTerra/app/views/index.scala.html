@@ -1,5 +1,21 @@
-@()
+@(observations: List[Observation], countries: List[Country], indicators: List[Indicator])
+
+@import play.i18n._
 
 @main("ObservaTerra") {
-	<p>@flash</p>
+<h1>@Messages.get("Wellcome")</h1>
+<table>
+<tr>	
+<th>Country</th>
+<th>Indicator</th>
+<th>Value</th>
+</tr>
+@for(observation <- observations) {
+	<tr>
+	<td>@observation.country.name</td>
+	<td>@observation.indicator.name</td>
+	<td>@observation.obsValue</td>
+	</tr> 
+}
+</table>
 }

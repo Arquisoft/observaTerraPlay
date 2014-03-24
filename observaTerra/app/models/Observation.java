@@ -1,10 +1,14 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import play.db.ebean.*;
-import play.data.validation.Constraints.*;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import play.data.validation.Constraints.Required;
+import play.db.ebean.Model;
 
 
 @Entity
@@ -16,24 +20,6 @@ public class Observation extends Model {
   @Required
   public Double obsValue;
   
-  public Observation(Double value, Country country, Indicator indicator) {
-	  this.obsValue = value ;
-	  this.country = country;
-	  this.indicator=indicator;
-  }
-  
-  public Observation(Double value, String countryName, String indicatorName) {
-	  this.obsValue = value ;
-	  this.country  = Country.getOrCreate(countryName);
-	  this.indicator=Indicator.getOrCreate(indicatorName);
-  }
-
-  public Observation(Double value, Long countryId, Long indicatorId) {
-	  this.obsValue = value ;
-	  this.country = Country.find.byId(countryId);
-	  this.indicator=Indicator.find.byId(indicatorId);
-  }
-
   @ManyToOne
   public Country country;
 
@@ -41,17 +27,47 @@ public class Observation extends Model {
   public Indicator indicator;
   
   public static Finder<Long,Observation> find = new Finder(Long.class, Observation.class);
-  
-  public static ObservationList all() {
-    return new ObservationList(find.all());
+
+  public Observation(Country country, Indicator indicator, Double value) {
+	  this.country = country;
+	  this.indicator=indicator;
+	  this.obsValue = value ;
   }
   
-  public static void create(Observation obs) {
-	obs.save();
+  public Observation(String countryCode, String indicatorCode, Double value) {
+	  this.country  = Country.find.ref(countryCode);
+	  this.indicator= Indicator.find.ref(indicatorCode);
+	  this.obsValue = value ;
+  }
+
+  public static List<Observation> all() {
+    return find.all();
+  }
+
+  public static Observation create(String code, String indicator, Double value) {
+	  Observation observation = new Observation(code,indicator,value);
+	  observation.save();
+	  return observation;
   }
   
   public static void delete(Long id) {
 	find.ref(id).delete();
   }
   
+  
+  public static Double average(List<Observation> observations) {
+	  Double sum = 0.0;
+		for (Observation obs : observations) {
+			sum += obs.obsValue;
+		}
+		return sum / observations.size() ;
+  }
+
+  public static List<Observation> filterByIndicatorName(String indicatorName, List<Observation> observations) {
+	List<Observation> result = new ArrayList<Observation>();
+	for (Observation obs : observations) {
+		if (obs.indicator.name == indicatorName) result.add(obs);
+	}
+	return result;
+  }
 }

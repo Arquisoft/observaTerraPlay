@@ -24,7 +24,7 @@
   <td>@obs.indicator.name</td>
   <td>@obs.obsValue</td>
       <td>
-      <td>@helper.form(routes.Application.deleteObservation(obs.id)) {
+      <td>@helper.form(routes.Admin.deleteObservation(obs.id)) {
                <input type="image" 
                       src="@{routes.Assets.at("images/delete.gif")}" 
                       alt='@{Messages.get("delete.observation")}'>
@@ -37,19 +37,19 @@
 
 <h2>@{Messages.get("add.observation")}</h2>
     
-	@helper.form(action = routes.Application.newObservation()) {
+	@helper.form(action = routes.Admin.newObservation()) {
 	
         @helper.inputText(form("value"))
 
          <select name="countryId">
          @for( country <- countries) {
-         	<option value="@country.id">@country.name</option>
+         	<option value="@country.code">@country.name</option>
          }
         </select>
         
         <select name="indicatorId">
          @for( indicator <- indicators) {
-         	<option value="@indicator.id">@indicator.name</option>
+         	<option value="@indicator.code">@indicator.name</option>
          }
         </select> 
 
@@ -59,7 +59,7 @@
     
 <h2>@Messages.get("upload.excel.file")</h2>
 
-@helper.form(action = routes.Application.uploadExcel, 
+@helper.form(action = routes.Admin.uploadExcel, 
 	  'enctype -> "multipart/form-data") {
     
     <input type="file" name="excel">

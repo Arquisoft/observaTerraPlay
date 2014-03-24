@@ -2,11 +2,10 @@ package utils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
-import models.Country;
-import models.Indicator;
 import models.Observation;
-import models.ObservationList;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -15,8 +14,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelReader {
 	
-	public ObservationList read(InputStream input) throws IOException {
-	  ObservationList obsList = new ObservationList();
+	public List<Observation> read(InputStream input) throws IOException {
+	  List<Observation> obsList = new ArrayList<Observation>();
 	  
 	  XSSFWorkbook workbook = new XSSFWorkbook(input);
 	  XSSFSheet sheet = workbook.getSheetAt(0);
@@ -40,8 +39,8 @@ public class ExcelReader {
 				}
 			}
 			if (!countryName.equals("")) {
-				Observation obs = new Observation(value, new Country(countryName), new Indicator(indicatorName));
-				obsList.addObservation(obs);
+				Observation obs = new Observation(countryName, indicatorName, value);
+				obsList.add(obs);
 			} 
 		  }
 		}

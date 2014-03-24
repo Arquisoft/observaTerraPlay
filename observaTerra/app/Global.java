@@ -16,16 +16,21 @@ public class Global extends GlobalSettings {
 	static class InitialData {
 		public static void insert(Application app) {
 			if (Country.all().isEmpty()) {
-				/*Country 	spain = new Country("Spain");
-				Country 	france= new Country("France");
-				Indicator	hdi   = new Indicator("hdi");
-				Observation obs1 = new Observation(2.3,spain,hdi);
-				Observation obs2 = new Observation(3.4,france,hdi);
+				Country 	spain = new Country("es","Spain");
+				Country 	france= new Country("fr","France");
+				Country		chile = new Country("cl","Chile");
+				Country		italy = new Country("it","Italy");
+				
+				Indicator	hdi   = new Indicator("hdi","Human Development Index");
+				Indicator	wi    = new Indicator("wi","WebIndex");
+
 				spain.save();
 				france.save();
+				italy.save();
+				chile.save();
+				
 				hdi.save();
-				obs1.save();
-				obs2.save(); */
+				wi.save();
 			}
 		}
 	}

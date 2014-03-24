@@ -13,47 +13,33 @@ import play.db.ebean.Model;
 public class Country extends Model {
     
   @Id
-  public Long id;
-  
-  @Required
+  public String code;
   public String name;
   
-  public Country(String name) {
+  public Country(String code, String name) {
+	  this.code = code;
 	  this.name = name;
   }
    
-  public static Finder<Long,Country> find = new Finder(Long.class, Country.class);
+  public static Finder<String,Country> find = new Finder(String.class, Country.class);
   
   public static List<Country> all() {
     return find.all();
   }
-  
+
   public static void create(Country country) {
-	if (Country.findByName(country.name).isEmpty()) { 
-		country.save();
-	} else
-		throw new CountryExistsException();
+	if (Country.findByName(country.name) == null) { 
+			country.save();
+	}
+  }
+
+  public static void remove(String code) {
+	find.ref(code).delete();
   }
   
-  public static void delete(Long id) {
-	find.ref(id).delete();
+  public static Country findByName(String name) {
+	  return find.where().eq("name", name).findUnique();
   }
-  
-  public static List<Country> findByName(String name) {
-	  return find.where().eq("name", name).findList();
-  }
-  
-  public static Country getOrCreate(String name) {
-	  List<Country> foundCountries = Country.findByName(name);
-	  if (foundCountries.isEmpty()) {
-		  Country country = new Country(name);
-		  country.save();
-		  return country;
-	  } else {
-		  return foundCountries.get(0);
-	  }
-  }
-  
+
 }
 
-class CountryExistsException extends PersistenceException {};

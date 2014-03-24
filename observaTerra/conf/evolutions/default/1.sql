@@ -4,22 +4,22 @@
 # --- !Ups
 
 create table country (
-  id                        bigint not null,
+  code                      varchar(255) not null,
   name                      varchar(255),
-  constraint pk_country primary key (id))
+  constraint pk_country primary key (code))
 ;
 
 create table indicator (
-  id                        bigint not null,
+  code                      varchar(255) not null,
   name                      varchar(255),
-  constraint pk_indicator primary key (id))
+  constraint pk_indicator primary key (code))
 ;
 
 create table observation (
   id                        bigint not null,
   obs_value                 double,
-  country_id                bigint,
-  indicator_id              bigint,
+  country_code              varchar(255),
+  indicator_code            varchar(255),
   constraint pk_observation primary key (id))
 ;
 
@@ -29,10 +29,10 @@ create sequence indicator_seq;
 
 create sequence observation_seq;
 
-alter table observation add constraint fk_observation_country_1 foreign key (country_id) references country (id) on delete restrict on update restrict;
-create index ix_observation_country_1 on observation (country_id);
-alter table observation add constraint fk_observation_indicator_2 foreign key (indicator_id) references indicator (id) on delete restrict on update restrict;
-create index ix_observation_indicator_2 on observation (indicator_id);
+alter table observation add constraint fk_observation_country_1 foreign key (country_code) references country (code) on delete restrict on update restrict;
+create index ix_observation_country_1 on observation (country_code);
+alter table observation add constraint fk_observation_indicator_2 foreign key (indicator_code) references indicator (code) on delete restrict on update restrict;
+create index ix_observation_indicator_2 on observation (indicator_code);
 
 
 

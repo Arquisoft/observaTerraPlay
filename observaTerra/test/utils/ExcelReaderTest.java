@@ -1,14 +1,18 @@
 package utils;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.offset;
+
 import java.io.InputStream;
+import java.util.List;
 
-import models.Observation;
-import models.ObservationList;
+import models.*;
+import static models.Observation.average;
 
-import org.junit.*;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
-import static org.assertj.core.api.Assertions.*;
-import play.Logger;
 import play.test.FakeApplication;
 import play.test.Helpers;
 
@@ -29,12 +33,11 @@ public class ExcelReaderTest {
 	  InputStream input = new ExcelReaderTest().getClass().getClassLoader()
 						  .getResourceAsStream(xlsFile);
 	  ExcelReader excelReader = new ExcelReader();
-	  ObservationList obsList = excelReader.read(input);
-	  obsList.save();
-	  assertThat(Observation.all().average()).isEqualTo(3.325,offset(0.001));
-	  for (Observation obs: Observation.find.all()) {
-		  Logger.info("Observation: " + obs);
+	  List<Observation> obsList = excelReader.read(input);
+	  for (Observation obs: obsList) {
+		  obs.save();
 	  }
+	  assertThat(average(Observation.all())).isEqualTo(3.325,offset(0.001));
 	}
 	
 	@AfterClass

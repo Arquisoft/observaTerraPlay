@@ -2,34 +2,27 @@ package models;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+import static play.test.Helpers.*;
+import play.test.*;
 
 import org.junit.*;
 
-import play.test.FakeApplication;
-import play.test.Helpers;
 
-public class ObservationTest {
+
+public class ObservationTest extends WithApplication {
 	  
-	public static FakeApplication app;
-	  
-	@BeforeClass
-	public static void startApp() {
-	  app = Helpers.fakeApplication(Helpers.inMemoryDatabase());
-	  Helpers.start(app);
-	}
-	  
+	@Before
+    public void setUp() {
+        start(fakeApplication(inMemoryDatabase()));
+    }
+	
 	@Test
 	public void saveObservation() {
-		Observation obs = new Observation(2.3,"Spain","hdi");
+		Observation obs = new Observation("es","hdi",2.3);
 		obs.save();
-		assertEquals(Country.findByName("Spain").size(),1);
-		assertEquals(Indicator.findByName("hdi").size(),1);
-		assertEquals(Observation.all().length(),1);
-		assertThat(Observation.all().average()).isEqualTo(2.3);
+		assertThat(Country.findByName("Spain").code).isEqualTo("es");
+		assertEquals(Observation.all().size(),1);
+		assertThat(Observation.average(Observation.all())).isEqualTo(2.3);
 	  }
 
-	@AfterClass
-	  public static void stopApp() {
-	    Helpers.stop(app);
-	}	
 }

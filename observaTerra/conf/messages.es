@@ -1,5 +1,6 @@
 name = nombre
 create = Crear
+Wellcome			= Bienvenido al portal ObservaTerra
 
 countries 			= Países
 list.countries		= Lista de países
