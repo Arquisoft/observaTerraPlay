@@ -42,4 +42,9 @@ public class ObservationList {
 		return returnList;
 	}
 
+	public void save() {
+		for (Observation obs: obsList) {
+			obs.save();
+		}
+	}
 }

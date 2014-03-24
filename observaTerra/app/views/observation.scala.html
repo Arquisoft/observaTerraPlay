@@ -8,6 +8,8 @@
 
 @main(Messages.get("list.observations")) {
 
+<h1>@Messages.get("observations")</h1>
+
 <table>
 <tr>
 <th>Id</th>
@@ -54,5 +56,18 @@
         <input type="submit" value="@{Messages.get("create")}">
         
     }    
+    
+<h2>@Messages.get("upload.excel.file")</h2>
+
+@helper.form(action = routes.Application.uploadExcel, 
+	  'enctype -> "multipart/form-data") {
+    
+    <input type="file" name="excel">
+    
+    <p>
+        <input type="submit">
+    </p>
+    
+}
     
 }

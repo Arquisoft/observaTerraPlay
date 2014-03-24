@@ -1,8 +1,7 @@
 package models;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.offset;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.*;
 
@@ -15,7 +14,7 @@ public class ObservationTest {
 	  
 	@BeforeClass
 	public static void startApp() {
-	  app = Helpers.fakeApplication(/*Helpers.inMemoryDatabase()*/);
+	  app = Helpers.fakeApplication(Helpers.inMemoryDatabase());
 	  Helpers.start(app);
 	}
 	  
@@ -29,4 +28,8 @@ public class ObservationTest {
 		assertThat(Observation.all().average()).isEqualTo(2.3);
 	  }
 
+	@AfterClass
+	  public static void stopApp() {
+	    Helpers.stop(app);
+	}	
 }

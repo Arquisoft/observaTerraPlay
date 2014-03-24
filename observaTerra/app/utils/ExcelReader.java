@@ -1,4 +1,4 @@
-package utils ;
+package utils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +13,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-class ExcelReader {
+public class ExcelReader {
 	
 	public ObservationList read(InputStream input) throws IOException {
 	  ObservationList obsList = new ObservationList();
