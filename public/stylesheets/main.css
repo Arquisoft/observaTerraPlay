@@ -1,0 +1,25 @@
+h1 { color: darkblue; 
+	
+}
+
+header {
+	font-size: 2em;
+}
+
+header img {
+	width: 2em; height: 2em;
+	float: left;
+	-webkit-transition: -webkit-transform 0.3s ease-out;
+	transition: transform 0.3s ease-out;
+}
+
+header img:hover {
+	-webkit-transform: rotate(15deg);
+	transform: rotate(15deg);
+}
+
+header a {
+	text-decoration: none;
+}
+
+nav ul { list-style-type: none; }

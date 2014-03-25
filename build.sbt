@@ -1,7 +1,7 @@
 import de.johoop.jacoco4sbt._
 import JacocoPlugin._
 
-name := "observaTerra"
+name := "observaTerraPlay"
 
 version := "1.0-SNAPSHOT"
 
