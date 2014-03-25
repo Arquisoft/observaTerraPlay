@@ -16,6 +16,7 @@ POST	/indicator/delete/:code       controllers.Admin.deleteIndicator(code: Strin
 POST	/observation				controllers.Admin.newObservation()
 POST	/observation/delete/:code     controllers.Admin.deleteObservation(code: Long)
 
+GET		/api/countries				controllers.API.countries()
 POST	/api/excel/upload			controllers.Admin.uploadExcel()
 
 # Map static resources from the /public folder to the /assets URL path
