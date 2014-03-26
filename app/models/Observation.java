@@ -70,4 +70,11 @@ public class Observation extends Model {
 	}
 	return result;
   }
+
+
+  public static List<Observation> findByIndicatorName(String indicatorCode) {
+	Indicator ind = Indicator.findByCode(indicatorCode);
+	List<Observation> result = find.where().eq("indicator", ind).findList();
+	return result;
+  }
 }
