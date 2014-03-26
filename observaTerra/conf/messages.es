@@ -15,3 +15,9 @@ observations		= Observaciones
 list.observations	= Lista de observaciones
 add.observation 	= Añadir observación
 delete.observation  = Borrar observación
+
+file.uploaded		= Fichero subido con {0} observaciones
+read.excel.error	= Error al leer fichero Excel
+upload.excel.file	= Cargar fichero Excel
+upload				= Cargar
+

@@ -17,6 +17,8 @@ GET		/observation				controllers.Application.showObservations()
 POST	/observation				controllers.Application.newObservation()
 POST	/observation/delete/:id     controllers.Application.deleteObservation(id: Long)
 
+POST	/api/excel/upload			controllers.Application.uploadExcel()
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 

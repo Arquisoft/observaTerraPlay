@@ -15,3 +15,8 @@ observations		= Observations
 list.observations	= List of Observations
 add.observation 	= Add Observation
 delete.observation  = Delete Observation
+
+file.uploaded		= Uploaded file with {0} observations
+read.excel.error	= Error reading excel file
+upload.excel.file	= Upload Excel File
+upload				= Upload

@@ -2,9 +2,12 @@ package models;
 
 import java.util.List;
 
-import play.db.ebean.*;
-import play.data.validation.Constraints.*;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.PersistenceException;
+
+import play.data.validation.Constraints.Required;
+import play.db.ebean.Model;
 
 @Entity
 public class Country extends Model {
@@ -26,11 +29,31 @@ public class Country extends Model {
   }
   
   public static void create(Country country) {
-	country.save();
+	if (Country.findByName(country.name).isEmpty()) { 
+		country.save();
+	} else
+		throw new CountryExistsException();
   }
   
   public static void delete(Long id) {
 	find.ref(id).delete();
   }
   
+  public static List<Country> findByName(String name) {
+	  return find.where().eq("name", name).findList();
+  }
+  
+  public static Country getOrCreate(String name) {
+	  List<Country> foundCountries = Country.findByName(name);
+	  if (foundCountries.isEmpty()) {
+		  Country country = new Country(name);
+		  country.save();
+		  return country;
+	  } else {
+		  return foundCountries.get(0);
+	  }
+  }
+  
 }
+
+class CountryExistsException extends PersistenceException {};

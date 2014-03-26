@@ -1,4 +1,4 @@
-package es.uniovi.asw.buscador;
+package buscador;
 
 import static org.junit.Assert.assertTrue;
 
