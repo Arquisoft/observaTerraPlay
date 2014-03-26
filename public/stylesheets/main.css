@@ -23,3 +23,15 @@ header a {
 }
 
 nav ul { list-style-type: none; }
+
+table {
+ border: 1px solid;
+ border-collapse: collapse;
+ margin-left: auto;
+ margin-right: auto;
+ margin-bottom: 2em; 
+}
+
+td { border-top: 1px solid ; 
+ padding: 0.5em;
+}

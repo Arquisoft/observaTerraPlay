@@ -56,8 +56,7 @@ public class API extends Controller {
         	obj.put("countryName", obs.country.name);
         	array.add(obj);
     	}
-    	result.put("observations",array);
-    	return ok(result);
+    	return ok(array);
     }
 
 }
