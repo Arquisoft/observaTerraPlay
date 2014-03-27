@@ -54,6 +54,11 @@ public class Observation extends Model {
 	find.ref(id).delete();
   }
   
+  public static void deleteAll() {
+	for (Observation obs: all()) {
+		obs.delete();
+	}
+  }
   
   public static Double average(List<Observation> observations) {
 	  Double sum = 0.0;

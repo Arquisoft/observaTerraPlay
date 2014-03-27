@@ -14,6 +14,10 @@ countries:
         code: it
         name: Italy
 
+    - !!models.Country
+        code: cl
+        name: Chile
+
 # Indicators
 
 indicators:

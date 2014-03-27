@@ -25,6 +25,7 @@ public class ExcelReaderTest {
 	public static void startApp() {
 	  app = Helpers.fakeApplication(Helpers.inMemoryDatabase());
 	  Helpers.start(app);
+	  Observation.deleteAll();
 	}
 	  
 	@Test
