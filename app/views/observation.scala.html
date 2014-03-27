@@ -16,6 +16,7 @@
 <th>Country</th>
 <th>Indicator</th>
 <th>Value</th>
+<th>Remove</th>
 </tr>
 @for(obs <- observations) { 
   <tr>
@@ -23,13 +24,12 @@
   <td>@obs.country.name</td>
   <td>@obs.indicator.name</td>
   <td>@obs.obsValue</td>
-      <td>
-      <td>@helper.form(routes.Admin.deleteObservation(obs.id)) {
+  <td>@helper.form(routes.Admin.deleteObservation(obs.id)) {
                <input type="image" 
                       src="@{routes.Assets.at("images/delete.gif")}" 
                       alt='@{Messages.get("delete.observation")}'>
          }
-      </td>
+   </td>
   </tr>
    
 }

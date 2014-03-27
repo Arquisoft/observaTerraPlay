@@ -1,0 +1,27 @@
+# Countries
+
+countries:
+
+    - !!models.Country
+        code: es
+        name: Spain
+
+    - !!models.Country
+        code: fr
+        name: France
+
+    - !!models.Country
+        code: it
+        name: Italy
+
+# Indicators
+
+indicators:
+
+    - !!models.Indicator
+        code: hdi
+        name: Human Development Index
+
+    - !!models.Indicator
+        code: wi
+        name: WebIndex

@@ -1,7 +1,11 @@
 name = nombre
 create = Crear
 Wellcome			= Bienvenido al portal ObservaTerra
-
+Country				= País
+Indicator			= Indicador
+Value				= Valor
+Bar.chart			= Gráfico de barras
+Admin				= Administrar
 countries 			= Países
 list.countries		= Lista de países
 add.country 		= Añadir país

@@ -6,7 +6,7 @@ GET     /              				controllers.Application.index()
 GET		/country					controllers.Application.showCountries()
 GET		/indicator					controllers.Application.showIndicators()
 GET		/observation				controllers.Application.showObservations()
-GET     /bars           			controllers.Application.bars()
+GET     /bars/:indicator   			controllers.Application.bars(indicator:String)
 
 
 POST	/country					controllers.Admin.newCountry()

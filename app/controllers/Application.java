@@ -35,8 +35,8 @@ public class Application extends Controller {
     	return ok(observation.render(Observation.find.all(),Country.all(),Indicator.all(),observationForm));
     }
     
-    public static Result bars() {
-    	return ok(bars.render());
+    public static Result bars(String indicator) {
+    	return ok(bars.render(Indicator.findByCode(indicator)));
     }
 
     static Form<Country>  	  countryForm     = Form.form(Country.class);

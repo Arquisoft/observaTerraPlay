@@ -22,7 +22,25 @@ header a {
 	text-decoration: none;
 }
 
-nav ul { list-style-type: none; }
+
+footer {
+	border-top: 1 solid;
+	background-color: DarkSeaGreen ;
+}
+
+footer nav ul { 
+	list-style-type: none;
+	overflow:hidden;
+}
+
+footer nav li {
+	float:left;
+	padding-left: 1em;
+}
+
+footer nav a {
+	display:block;
+}
 
 table {
  border: 1px solid;

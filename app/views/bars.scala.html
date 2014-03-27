@@ -1,18 +1,17 @@
-<html>
-<head>
-<meta charset="utf-8">
-<link href='@routes.Assets.at("stylesheets/bars.css")' 
-	  rel="stylesheet" >
-</head>
+@(indicator: Indicator)
 
+@import play.i18n._
 
-<h1>Grafico con D3</h1>
+@main("ObservaTerra") {
+<h2>@Messages.get("Bar.chart") - @indicator.name</h2>
 <svg class="chart"></svg>
 
 <script type="text/javascript" 
 		src='@routes.Assets.at("javascripts/d3.min.js")'></script>
 <script type="text/javascript" 
 		src='@routes.Assets.at("javascripts/bars.js")'></script>
+<script type="text/javascript">
+ bars("@routes.API.observationsByIndicator(indicator.code)",600)
+</script>
 
-
-</html>
+}

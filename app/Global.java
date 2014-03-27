@@ -16,21 +16,17 @@ public class Global extends GlobalSettings {
 	static class InitialData {
 		public static void insert(Application app) {
 			if (Country.all().isEmpty()) {
-				Country 	spain = new Country("es","Spain");
-				Country 	france= new Country("fr","France");
-				Country		chile = new Country("cl","Chile");
-				Country		italy = new Country("it","Italy");
 				
-				Indicator	hdi   = new Indicator("hdi","Human Development Index");
-				Indicator	wi    = new Indicator("wi","WebIndex");
-
-				spain.save();
-				france.save();
-				italy.save();
-				chile.save();
+				@SuppressWarnings("unchecked")
+				Map<String,List<Object>> all =
+						(Map<String,List<Object>>)Yaml.load("initial-data.yml");
+ 				Ebean.save(all.get("countries")); 
+				Ebean.save(all.get("indicators"));
 				
-				hdi.save();
-				wi.save();
+				// Some observations
+				new Observation("es","hdi",2.3).save();
+				new Observation("fr","hdi",3.4).save(); 
+				new Observation("it","hdi",3.0).save();
 			}
 		}
 	}
