@@ -37,6 +37,11 @@ public class Indicator extends Model {
   public static void remove(String id) {
 	find.ref(id).delete();
   }
+  
+  public static void deleteAll() {
+    for (Indicator ind: all()) ind.delete();
+  }
+
 
   public static Indicator findByName(String name) {
 	  return find.where().eq("name", name).findUnique();

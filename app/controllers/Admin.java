@@ -1,22 +1,9 @@
 package controllers;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.List;
-
-import models.Country;
-import models.Indicator;
-import models.Observation;
-import play.Logger;
-import play.data.DynamicForm;
-import play.data.Form;
-import play.i18n.Messages;
+import models.*;
+import play.data.*;
 import play.mvc.Controller;
-import play.mvc.Http.MultipartFormData;
-import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Result;
-import utils.ExcelReader;
 
 public class Admin extends Controller {
 
@@ -72,31 +59,6 @@ public class Admin extends Controller {
         return redirect(routes.Application.showObservations());
     }
     
-    public static Result uploadExcel() {
-    try {
-      MultipartFormData body = request().body().asMultipartFormData();
-      FilePart excel = body.getFile("excel");
-      if (excel != null) {
-    	    String fileName = excel.getFilename();
-    	    String contentType = excel.getContentType(); 
-    	    File file = excel.getFile();
-    	    ExcelReader reader = new ExcelReader();
-    	    List<Observation> obsList = reader.read(new FileInputStream(file));
-    	    for (Observation obs: obsList) {
-    	    	obs.save();
-    	    }
-    	    Logger.info("Excel file uploaded with " + obsList.size() + " observations");
-    	    return redirect(routes.Application.index());
-       } else {
-   	    	Logger.error("Missing file to upload ");
-    	    return redirect(routes.Application.index());    
-       } 
-      }
-    catch (IOException e) {
-      return(badRequest(Messages.get("read.excel.error") + "." + e.getLocalizedMessage()));	
-    }
-    }
-
     static Form<Country>  	  countryForm     = Form.form(Country.class);
     static Form<Indicator>    indicatorForm   = Form.form(Indicator.class);
     static Form<Observation>  observationForm = Form.form(Observation.class);

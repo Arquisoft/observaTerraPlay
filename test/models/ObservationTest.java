@@ -1,10 +1,9 @@
 package models;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.Assert.*;
 import static play.test.Helpers.*;
 import play.test.*;
-
 import org.junit.*;
 
 

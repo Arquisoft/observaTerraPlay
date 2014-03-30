@@ -82,4 +82,11 @@ public class Observation extends Model {
 	List<Observation> result = find.where().eq("indicator", ind).findList();
 	return result;
   }
+
+  public static List<Observation> findByCountryCode(String countryCode) {
+	Country c = Country.find.byId(countryCode);
+	List<Observation> result = find.where().eq("country", c).findList();
+	return result;
+  }
+
 }

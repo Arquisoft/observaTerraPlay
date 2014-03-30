@@ -4,10 +4,12 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.PersistenceException;
 
-import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
+import play.libs.Json;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @Entity
 public class Country extends Model {
@@ -37,9 +39,23 @@ public class Country extends Model {
 	find.ref(code).delete();
   }
   
+  public static void deleteAll() {
+    for (Country c: all()) c.delete();
+  }
+  
   public static Country findByName(String name) {
 	  return find.where().eq("name", name).findUnique();
   }
 
+  public static Country findByCode(String code) {
+	  return find.byId(code);
+  }
+  
+  public static JsonNode toJson(Country country) {
+	ObjectNode obj = Json.newObject();
+  	obj.put("code", country.code);
+  	obj.put("name", country.name);
+  	return obj;
+  }
 }
 

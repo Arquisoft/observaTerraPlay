@@ -18,11 +18,22 @@ POST	/indicator/delete/:code       controllers.Admin.deleteIndicator(code: Strin
 POST	/observation				controllers.Admin.newObservation()
 POST	/observation/delete/:code     controllers.Admin.deleteObservation(code: Long)
 
-GET		/api/country					controllers.API.countries()
-GET		/api/observation				controllers.API.observations()
-GET		/api/observation/indicator/:ind	controllers.API.observationsByIndicator(ind: String)
+# API 
 
-POST	/api/excel/upload			controllers.Admin.uploadExcel()
+GET		/api/country					controllers.API.countries()
+GET		/api/country/:code				controllers.API.country(code: String)
+PUT		/api/country/:code				controllers.API.updateCountry(code: String)
+POST	/api/country					controllers.API.addCountry()
+DELETE	/api/country/:code				controllers.API.delCountry(code: String)
+
+GET		/api/observation						controllers.API.observations()
+GET		/api/observation/indicator/:indicator	controllers.API.observationsByIndicator(indicator: String)
+GET		/api/observation/country/:country		controllers.API.observationsByCountry(country: String)
+
+POST	/api/observation/:country/:indicator	controllers.API.addObservation(country:String, indicator: String)
+DELETE	/api/observation/:country/:indicator	controllers.API.delObservation(country:String, indicator: String)
+
+POST	/api/excel/upload			controllers.API.uploadExcel()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
