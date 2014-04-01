@@ -20,18 +20,11 @@ import com.fasterxml.jackson.databind.node.*;
 public class API extends Controller {
 
     public static Result countries() {
-    	List<Country> countries = Country.all();
-    	JsonNodeFactory factory = JsonNodeFactory.instance;
-        ArrayNode array = new ArrayNode(factory);
-    	for (Country country : countries) {
-        	array.add(Country.toJson(country));
-    	}
-    	return ok(array);
+    	return ok(Json.toJson(Country.all()));
     }
     
     public static Result country(String code) {
-    	Country country = Country.findByCode(code);
-    	return ok(Country.toJson(country));
+    	return ok(Json.toJson(Country.findByCode(code)));
     }
 
     public static Result updateCountry(String code) {
@@ -55,46 +48,17 @@ public class API extends Controller {
 
     public static Result observations() {
     	List<Observation> obsList = Observation.all();
-    	JsonNodeFactory factory = JsonNodeFactory.instance;
-        ArrayNode array = new ArrayNode(factory);
-    	for (Observation obs : obsList) {
-    		ObjectNode obj = Json.newObject();
-        	obj.put("value", obs.obsValue);
-        	obj.put("countryCode", obs.country.code);
-        	obj.put("countryName", obs.country.name);
-        	obj.put("indicatorCode", obs.indicator.code);
-        	obj.put("indicatorName", obs.indicator.name);
-        	array.add(obj);
-    	}
-    	return ok(array);
+    	return ok(Json.toJson(obsList));
     }
 
     public static Result observationsByIndicator(String indicator) {
     	List<Observation> obsList = Observation.findByIndicatorName(indicator);
-    	JsonNodeFactory factory = JsonNodeFactory.instance;
-        ArrayNode array = new ArrayNode(factory);
-    	for (Observation obs : obsList) {
-    		ObjectNode obj = Json.newObject();
-        	obj.put("value", obs.obsValue);
-        	obj.put("countryCode", obs.country.code);
-        	obj.put("countryName", obs.country.name);
-        	array.add(obj);
-    	}
-    	return ok(array);
+    	return ok(Json.toJson(obsList));
     }
 
     public static Result observationsByCountry(String country) {
     	List<Observation> obsList = Observation.findByCountryCode(country);
-    	JsonNodeFactory factory = JsonNodeFactory.instance;
-        ArrayNode array = new ArrayNode(factory);
-    	for (Observation obs : obsList) {
-    		ObjectNode obj = Json.newObject();
-        	obj.put("value", obs.obsValue);
-        	obj.put("indicatorCode", obs.indicator.code);
-        	obj.put("indicatorName", obs.indicator.name);
-        	array.add(obj);
-    	}
-    	return ok(array);
+    	return ok(Json.toJson(obsList));
     }
 
     public static Result addObservation(String country, String indicator) {

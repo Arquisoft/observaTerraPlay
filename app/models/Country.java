@@ -52,10 +52,7 @@ public class Country extends Model {
   }
   
   public static JsonNode toJson(Country country) {
-	ObjectNode obj = Json.newObject();
-  	obj.put("code", country.code);
-  	obj.put("name", country.name);
-  	return obj;
+	return Json.toJson(country);
   }
 }
 

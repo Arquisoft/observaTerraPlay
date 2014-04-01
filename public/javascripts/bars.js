@@ -18,8 +18,9 @@ function drawBars(error, data) {
 		console.log("Error loading data!" + error)
 	} else {
 		console.log("Data loaded ok with " + data.length + " entries");
+		console.log(data);
 
-	x.domain([ 0, despX + d3.max(data, function(d) { return d.value; }) ]);
+	x.domain([ 0, despX + d3.max(data, function(d) { return d.obsValue; }) ]);
 	grafico.attr("width", width)
 	grafico.attr("height", alturaBarra * data.length);
 
@@ -38,20 +39,20 @@ function drawBars(error, data) {
 	   .attr("y",alturaBarra / 2)
 	   .attr("dy", ".35em")
 	   .text(function(d) {
-			return d.countryCode;
+			return d.country.code;
 		});
 
 	// Dibuja rectángulo con dimensión proporcional a valor
 	bar.append("rect")
-	   .attr("width", function(d) {	return x(d.value);  })
+	   .attr("width", function(d) {	return x(d.obsValue);  })
 	   .attr("height", alturaBarra - 1);
 
 	// Escribe texto con valor
 	bar.append("text")
-	   .attr("x", function(d) { return x(d.value) + 2 * despX; })
+	   .attr("x", function(d) { return x(d.obsValue) + 2 * despX; })
 	   .attr("y", alturaBarra / 2)
 	   .attr("dy", ".35em")
-	   .text(function(d) { return d.value.toFixed(2) + " (" + d.countryName + ")" ;});
+	   .text(function(d) { return d.obsValue.toFixed(2) + " (" + d.country.name + ")" ;});
 	}
  }
 }
