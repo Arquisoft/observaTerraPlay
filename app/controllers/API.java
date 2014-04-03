@@ -15,6 +15,7 @@ import play.mvc.Http.*;
 import play.mvc.Http.MultipartFormData.FilePart;
 import utils.*;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.*;
 
 public class API extends Controller {
@@ -22,11 +23,54 @@ public class API extends Controller {
     public static Result countries() {
     	return ok(Json.toJson(Country.all()));
     }
-    
+
     public static Result country(String code) {
     	return ok(Json.toJson(Country.findByCode(code)));
     }
 
+    /** Generates JSON with links to other resources 
+     *  following HATEOAS principles */
+    public static Result countriesHATEOAS() {
+     JsonNodeFactory factory = JsonNodeFactory.instance;
+     ArrayNode result = new ArrayNode(factory);
+     for (Country country : Country.all()) {
+       ObjectNode countryJson = Json.newObject();
+       countryJson.put("code", country.code);
+       countryJson.put("name", country.name);
+       ArrayNode links = new ArrayNode(factory);
+       ObjectNode self = Json.newObject();
+       self.put("rel", "self");
+       self.put("href", routes.API.countryHATEOAS(country.code).absoluteURL(request()));
+       
+       links.add(self);
+       countryJson.put("links", links);
+       result.add(countryJson);
+     }
+     return ok(result);
+    }
+    
+    public static Result countryHATEOAS(String code) {
+    	JsonNodeFactory factory = JsonNodeFactory.instance;
+    	
+    	Country country = Country.find.byId(code);
+        ObjectNode countryJson = Json.newObject();
+        countryJson.put("code", country.code);
+        countryJson.put("name", country.name);
+        ArrayNode links = new ArrayNode(factory);
+        ObjectNode self = Json.newObject();
+        self.put("rel", "self");
+        self.put("href", routes.API.countryHATEOAS(country.code).absoluteURL(request()));
+        links.add(self);
+         
+        ObjectNode parent = Json.newObject();
+        parent.put("rel", "parent");
+        parent.put("href", routes.API.countriesHATEOAS().absoluteURL(request()));
+        links.add(parent);
+
+        countryJson.put("links", links);
+    	return ok(countryJson);
+    }
+    
     public static Result updateCountry(String code) {
     	Country previous 	= Country.findByCode(code);
     	Country newCountry 	= countryForm.bindFromRequest().get();

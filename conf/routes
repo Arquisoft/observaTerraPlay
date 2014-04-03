@@ -35,6 +35,14 @@ DELETE	/api/observation/:country/:indicator	controllers.API.delObservation(count
 
 POST	/api/excel/upload			controllers.API.uploadExcel()
 
+# API2 showing the concept of HATEOAS
+GET		/api2/country					controllers.API.countriesHATEOAS()
+GET		/api2/country/:code				controllers.API.countryHATEOAS(code: String)
+PUT		/api2/country/:code				controllers.API.updateCountry(code: String)
+POST	/api2/country					controllers.API.addCountry()
+DELETE	/api2/country/:code				controllers.API.delCountry(code: String)
+
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
